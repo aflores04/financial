@@ -13,10 +13,21 @@ func GetRepository() repository.ITransactionRepository {
 }
 
 func TestGetHistorySuccess(t *testing.T) {
+	currentTime := time.Now()
 	var (
 		repository = GetRepository()
 		expected []domain.Transaction
 	)
+
+	transaction := repository.Create(10, "credit")
+	expected = []domain.Transaction{
+		domain.Transaction{
+			ID: transaction.ID,
+			Amount: 10,
+			Type: "credit",
+			EffectiveDate: currentTime.Format("2006.01.02 15:04:05"),
+		},
+	}
 	
 	assert.Equal(t, expected, repository.GetHistory())
 } 
