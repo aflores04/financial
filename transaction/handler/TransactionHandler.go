@@ -1,7 +1,8 @@
 package handler
 
 import (
-	"financial/transaction/service"
+	"github.com/gin-gonic/gin"
+	"github.com/aflores04/financial/transaction/service"
 )
 
 type ITransactionHandler interface {
@@ -9,9 +10,11 @@ type ITransactionHandler interface {
 }
 
 type TransactionHandler struct {
-	Service service.ITransactionService
+	service service.ITransactionService
 }
 
-func NewTransactionHandler() ITransactionHandler {
-	return &TransactionHandler
+func NewTransactionHandler(service service.ITransactionService) ITransactionHandler {
+	return &TransactionHandler{
+		service: service,
+	}
 }
