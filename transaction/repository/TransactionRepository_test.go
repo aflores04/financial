@@ -1,8 +1,8 @@
 package repository_test
 
 import (
-	"financial/transaction/repository"
-	"financial/transaction/domain"
+	"github.com/aflores04/financial/transaction/repository"
+	"github.com/aflores04/financial/transaction/domain"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

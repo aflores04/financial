@@ -1,8 +1,8 @@
 package service
 
 import (
-	"financial/transaction/repository"
-	"financial/transaction/domain"
+	"github.com/aflores04/financial/transaction/repository"
+	"github.com/aflores04/financial/transaction/domain"
 )
 
 type ITransactionService interface {

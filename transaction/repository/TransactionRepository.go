@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"financial/transaction/domain"
+	"github.com/aflores04/financial/transaction/domain"
 )
 
 type ITransactionRepository interface {
