@@ -1,11 +1,14 @@
 package repository
 
 import (
+	"time"
+	"github.com/google/uuid"
 	"github.com/aflores04/financial/transaction/domain"
 )
 
 type ITransactionRepository interface {
 	GetHistory() []domain.Transaction
+	Create(amount float64, transactionType string) domain.Transaction
 }
 
 type TransactionRepository struct {
@@ -14,6 +17,21 @@ type TransactionRepository struct {
 
 func NewTransactionRepository() ITransactionRepository {
 	return &TransactionRepository{}
+}
+
+func (r *TransactionRepository) Create(amount float64, transactionType string) domain.Transaction {
+	currentTime := time.Now()
+
+	transaction := domain.Transaction{
+		ID: uuid.New(),
+		Type: transactionType,
+		Amount: amount,
+		EffectiveDate: currentTime.Format("2006.01.02 15:04:05"),
+	}
+
+	r.History = append(r.History, transaction)
+
+	return transaction
 }
 
 func (r *TransactionRepository) GetHistory() []domain.Transaction {
