@@ -67,7 +67,11 @@ func TestFindTransactionPanic(t *testing.T) {
 		service = GetService()
 	)
 
-	_, err := service.Find(uuid.New())
+	defer func() {
+		if r := recover(); r != nil {
+			assert.Equal(t, r, "transaction not found")
+		}
+	}()
 
-	assert.Equal(t, err, "transaction not found")
+	service.Find(uuid.New())
 }
