@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"log"
 	"github.com/aflores04/financial/transaction/response"
 	"github.com/aflores04/financial/transaction/request"
 	"net/http"
@@ -18,8 +17,6 @@ func (h *TransactionHandler) CreateHandler(c *gin.Context) {
 		})
 		return
 	}
-
-	log.Println(postRequest.Amount)
 
 	c.JSON(http.StatusCreated, h.service.Create(postRequest))
 }
