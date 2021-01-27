@@ -21,5 +21,5 @@ func (h *TransactionHandler) CreateHandler(c *gin.Context) {
 
 	log.Println(postRequest.Amount)
 
-	c.JSON(http.StatusOK, h.service.Create(postRequest))
+	c.JSON(http.StatusCreated, h.service.Create(postRequest))
 }
