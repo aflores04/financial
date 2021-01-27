@@ -18,5 +18,15 @@ func (h *TransactionHandler) CreateHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, h.service.Create(postRequest))
+	result, err := h.service.Create(postRequest)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, response.ErrorResponse{
+			Code:		http.StatusBadRequest,
+			Message:	"invalid transaction",
+		})
+		return
+	}
+
+	c.JSON(http.StatusCreated, result)
 }
