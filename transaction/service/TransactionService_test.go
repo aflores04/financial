@@ -1,6 +1,7 @@
 package service_test
 
 import (
+	"github.com/google/uuid"
 	"github.com/aflores04/financial/transaction/request"
 	"time"
 	"github.com/stretchr/testify/assert"
@@ -59,4 +60,14 @@ func TestCreate(t *testing.T) {
 	}
 
 	assert.Equal(t, expected, transaction)
+}
+
+func TestFindTransactionPanic(t *testing.T) {
+	var (
+		service = GetService()
+	)
+
+	_, err := service.Find(uuid.New())
+
+	assert.Equal(t, err, "transaction not found")
 }

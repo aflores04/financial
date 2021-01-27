@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"log"
 	"time"
 	"github.com/google/uuid"
 	"github.com/aflores04/financial/transaction/domain"
@@ -9,6 +10,7 @@ import (
 type ITransactionRepository interface {
 	GetHistory() []domain.Transaction
 	Create(amount float64, transactionType string) domain.Transaction
+	Find(id uuid.UUID) domain.Transaction 
 }
 
 type TransactionRepository struct {
@@ -36,4 +38,15 @@ func (r *TransactionRepository) Create(amount float64, transactionType string) d
 
 func (r *TransactionRepository) GetHistory() []domain.Transaction {
 	return r.History
+}
+
+func (r *TransactionRepository) Find(id uuid.UUID) domain.Transaction {
+	log.Println(id)
+	for _, transaction := range r.History {
+		if transaction.ID == id {
+			return transaction
+		}
+	}
+
+	panic("transaction not found")
 }

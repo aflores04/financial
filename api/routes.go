@@ -21,6 +21,7 @@ func InitRoutes() *gin.Engine {
 	transaction := v1.Group("transaction")
 	transaction.GET("/", TransactionHandler.HistoryHandler)
 	transaction.POST("/", TransactionHandler.CreateHandler)
+	transaction.GET("/:id", TransactionHandler.FindHandler)
 
 	return router
 }
