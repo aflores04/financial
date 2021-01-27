@@ -1,12 +1,13 @@
 package validator
 
 import (
+	"github.com/aflores04/financial/transaction/domain"
 	"github.com/go-playground/validator/v10"
 	"github.com/gin-gonic/gin/binding"
 )
 
 var validType validator.Func = func(fl validator.FieldLevel) bool {
-	validTypes := []string{"credit", "debit"}
+	validTypes := []string{domain.CREDIT, domain.DEBIT}
 
 	for _, validType := range validTypes {
 		if validType == fl.Field().String() {

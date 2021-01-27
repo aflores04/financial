@@ -9,7 +9,7 @@ import (
 
 type ITransactionRepository interface {
 	GetHistory() []domain.Transaction
-	Create(amount float64, transactionType string) domain.Transaction
+	Create(amount float64, transactionType string, transactionChannel chan *domain.Transaction)
 	Find(id uuid.UUID) domain.Transaction 
 }
 
@@ -21,7 +21,10 @@ func NewTransactionRepository() ITransactionRepository {
 	return &TransactionRepository{}
 }
 
-func (r *TransactionRepository) Create(amount float64, transactionType string) domain.Transaction {
+func (r *TransactionRepository) Create(
+	amount float64, 
+	transactionType string, 
+	transactionChannel chan *domain.Transaction)  {
 	currentTime := time.Now()
 
 	transaction := domain.Transaction{
@@ -33,7 +36,7 @@ func (r *TransactionRepository) Create(amount float64, transactionType string) d
 
 	r.History = append(r.History, transaction)
 
-	return transaction
+	transactionChannel <- &transaction
 }
 
 func (r *TransactionRepository) GetHistory() []domain.Transaction {
