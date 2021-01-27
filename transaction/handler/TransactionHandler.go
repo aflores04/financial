@@ -7,6 +7,7 @@ import (
 
 type ITransactionHandler interface {
 	HistoryHandler(c *gin.Context)
+	CreateHandler(c *gin.Context)
 }
 
 type TransactionHandler struct {
